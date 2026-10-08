@@ -4,15 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>94 Games</title>
-
   <style>
     :root {
       --neon: #39ff14;
-      --neon-dark: #13c900;
       --bg: #020602;
-      --panel: rgba(8, 24, 10, 0.92);
-      --panel-light: rgba(57, 255, 20, 0.08);
-      --border: rgba(57, 255, 20, 0.35);
+      --panel: rgba(8, 24, 10, 0.94);
+      --border: rgba(57, 255, 20, 0.4);
       --text-muted: #9ac49d;
     }
 
@@ -75,16 +72,15 @@
       font-weight: 900;
       letter-spacing: 2px;
       white-space: nowrap;
-      text-shadow:
-        0 0 8px var(--neon),
-        0 0 25px var(--neon);
+      text-shadow: 0 0 8px var(--neon), 0 0 25px var(--neon);
     }
 
-    .nav-buttons {
+    .nav-buttons,
+    .hero-buttons,
+    .controls {
       display: flex;
       gap: 10px;
       flex-wrap: wrap;
-      justify-content: flex-end;
     }
 
     button,
@@ -169,13 +165,6 @@
       line-height: 1.6;
     }
 
-    .hero-buttons {
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
     .hero-button {
       padding: 13px 20px;
       color: #001000;
@@ -211,10 +200,7 @@
     }
 
     .controls {
-      display: flex;
-      gap: 9px;
       margin-bottom: 22px;
-      flex-wrap: wrap;
     }
 
     #search {
@@ -239,7 +225,6 @@
 
     .filter-button {
       padding: 11px 14px;
-      cursor: pointer;
       color: var(--text-muted);
       border: 1px solid var(--border);
       border-radius: 10px;
@@ -272,7 +257,6 @@
       background:
         linear-gradient(145deg, rgba(57, 255, 20, 0.12), transparent 45%),
         var(--panel);
-      box-shadow: inset 0 0 30px rgba(57, 255, 20, 0.025);
       transition: 0.25s ease;
     }
 
@@ -409,6 +393,30 @@
       background: #000;
     }
 
+    .modal-message {
+      display: none;
+      place-items: center;
+      flex: 1;
+      padding: 30px;
+      color: white;
+      text-align: center;
+    }
+
+    .modal-message.show {
+      display: grid;
+    }
+
+    .modal-message h2 {
+      margin-bottom: 12px;
+      color: var(--neon);
+    }
+
+    .modal-message p {
+      max-width: 600px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
     @media (max-width: 650px) {
       .nav {
         align-items: flex-start;
@@ -445,110 +453,132 @@
     }
   </style>
 </head>
-
 <body>
   <header>
     <nav class="nav">
       <div class="logo">94 GAMES</div>
+  <div class="nav-buttons">
+    <button class="nav-button" type="button" onclick="scrollToGames()">
+      Games
+    </button>
 
-      <div class="nav-buttons">
-        <button class="nav-button" onclick="scrollToGames()">Games</button>
-        <button class="nav-button" onclick="openHubAboutBlank()">Open About:Blank</button>
-        <button class="nav-button" onclick="toggleFullscreen()">Fullscreen</button>
-      </div>
-    </nav>
+    <button class="nav-button" type="button" onclick="openHubAboutBlank()">
+      Open About:Blank
+    </button>
+
+    <button class="nav-button" type="button" onclick="toggleFullscreen()">
+      Fullscreen
+    </button>
+  </div>
+</nav>
+
   </header>
-
   <main>
     <section class="hero">
       <div class="hero-content">
         <div class="badge">NEON ARCADE // 94 TITLES</div>
+    <h1>94<br />GAMES</h1>
 
-        <h1>94<br />GAMES</h1>
+    <p>
+      A neon-powered arcade hub featuring racing, sports, puzzle,
+      idle, action, and classic browser games.
+    </p>
 
-        <p>
-          A neon-powered arcade hub featuring racing, sports, puzzle,
-          idle, action, and classic browser games.
-        </p>
+    <div class="hero-buttons">
+      <button class="hero-button" type="button" onclick="scrollToGames()">
+        Browse Games
+      </button>
 
-        <div class="hero-buttons">
-          <button class="hero-button" onclick="scrollToGames()">
-            Browse Games
-          </button>
+      <button class="outline-button" type="button" onclick="openHubAboutBlank()">
+        Launch About:Blank
+      </button>
+    </div>
+  </div>
+</section>
 
-          <button class="outline-button" onclick="openHubAboutBlank()">
-            Launch About:Blank
-          </button>
-        </div>
-      </div>
-    </section>
+<section id="games">
+  <div class="section-header">
+    <h2>ALL GAMES</h2>
+    <span id="gameCount">94 games available</span>
+  </div>
 
-    <section id="games">
-      <div class="section-header">
-        <h2>ALL GAMES</h2>
-        <span id="gameCount">94 games available</span>
-      </div>
+  <div class="controls">
+    <input
+      id="search"
+      type="search"
+      placeholder="Search games..."
+      autocomplete="off"
+    />
 
-      <div class="controls">
-        <input
-          id="search"
-          type="search"
-          placeholder="Search games..."
-          oninput="renderGames()"
-        />
+    <button class="filter-button active" type="button" data-category="all">
+      All
+    </button>
 
-        <button class="filter-button active" onclick="setCategory('all', this)">
-          All
-        </button>
+    <button class="filter-button" type="button" data-category="arcade">
+      Arcade
+    </button>
 
-        <button class="filter-button" onclick="setCategory('arcade', this)">
-          Arcade
-        </button>
+    <button class="filter-button" type="button" data-category="racing">
+      Racing
+    </button>
 
-        <button class="filter-button" onclick="setCategory('racing', this)">
-          Racing
-        </button>
+    <button class="filter-button" type="button" data-category="sports">
+      Sports
+    </button>
 
-        <button class="filter-button" onclick="setCategory('sports', this)">
-          Sports
-        </button>
+    <button class="filter-button" type="button" data-category="puzzle">
+      Puzzle
+    </button>
+  </div>
 
-        <button class="filter-button" onclick="setCategory('puzzle', this)">
-          Puzzle
-        </button>
-      </div>
+  <div id="gameGrid" class="game-grid"></div>
+</section>
 
-      <div id="gameGrid" class="game-grid"></div>
-    </section>
   </main>
-
   <footer>
     94 Games © 2026 — Only host games that you are authorized to redistribute.
   </footer>
-
-  <div id="gameModal" class="game-modal">
+  <div id="gameModal" class="game-modal" aria-hidden="true">
     <div class="modal-bar">
       <div id="modalTitle" class="modal-title">94 Games</div>
+  <div class="modal-actions">
+    <button class="fullscreen-button" type="button" onclick="fullscreenGame()">
+      Fullscreen
+    </button>
 
-      <div class="modal-actions">
-        <button class="fullscreen-button" onclick="fullscreenGame()">
-          Fullscreen
-        </button>
-
-        <button class="close-button" onclick="closeGame()">
-          Close
-        </button>
-      </div>
-    </div>
-
-    <iframe
-      id="gameFrame"
-      title="Game"
-      allow="fullscreen; autoplay; gamepad"
-      allowfullscreen>
-    </iframe>
+    <button class="close-button" type="button" onclick="closeGame()">
+      Close
+    </button>
   </div>
+</div>
 
+<iframe
+  id="gameFrame"
+  title="Game"
+  allow="fullscreen; autoplay; gamepad"
+  allowfullscreen>
+</iframe>
+
+<div id="modalMessage" class="modal-message">
+  <div>
+    <h2 id="messageTitle">Game could not load inside the hub</h2>
+    <p id="messageText">
+      This website may block iframe loading. Use the button below to open it
+      in a new tab.
+    </p>
+
+    <br />
+
+    <button
+      id="openExternalButton"
+      class="hero-button"
+      type="button">
+      Open Game in New Tab
+    </button>
+  </div>
+</div>
+
+  </div>
   <script>
     const games = [
       {
@@ -556,28 +586,29 @@
         icon: "🏎️",
         category: "racing",
         description: "Race across difficult obstacle courses.",
-        url: "https://gobblegame.github.io/play/drive-mad.html"
+        url: "https://drive-mad-game-level-199.github.io/"
       },
       {
         name: "Retro Bowl",
         icon: "🏈",
         category: "sports",
         description: "Play classic-style retro football.",
-        url: "https://www.gstatic.com/atari/embeds/1662707594e9d2279db9db3af3702f1c/intermediate-frame-minified.html"
+        url: "https://poki.com/en/g/retro-bowl",
+        externalOnly: true
       },
       {
         name: "Idle Breakout",
         icon: "🧱",
         category: "arcade",
         description: "Break bricks and upgrade your setup.",
-        url: "https://mountain-game-games.github.io/g/idlebreakout/main.html"
+        url: "https://3kh0.github.io/idle-breakout/"
       },
       {
         name: "Slope",
         icon: "🔵",
         category: "arcade",
         description: "Roll through an endless neon course.",
-        url: "https://gameinclassroom.github.io/play/slope.html"
+        url: "https://slopeunblockedgithub.github.io/"
       },
 
       {
@@ -613,7 +644,7 @@
         icon: "🔢",
         category: "puzzle",
         description: "Combine matching tiles to reach 2048.",
-        url: ""
+        url: "https://eng-mohamed-elsayedahmed.github.io/games/"
       },
       {
         name: "Laser Dodge",
@@ -1206,11 +1237,28 @@
     ];
 
     let selectedCategory = "all";
+    let currentGameUrl = "";
+
+    const grid = document.getElementById("gameGrid");
+    const searchInput = document.getElementById("search");
+    const gameCount = document.getElementById("gameCount");
+    const modal = document.getElementById("gameModal");
+    const frame = document.getElementById("gameFrame");
+    const modalTitle = document.getElementById("modalTitle");
+    const modalMessage = document.getElementById("modalMessage");
+    const openExternalButton = document.getElementById("openExternalButton");
+
+    function escapeHtml(value) {
+      return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
 
     function renderGames() {
-      const grid = document.getElementById("gameGrid");
-      const search = document.getElementById("search");
-      const searchTerm = search.value.toLowerCase().trim();
+      const searchTerm = searchInput.value.toLowerCase().trim();
 
       const visibleGames = games.filter((game) => {
         const categoryMatch =
@@ -1224,7 +1272,7 @@
         return categoryMatch && searchMatch;
       });
 
-      document.getElementById("gameCount").textContent =
+      gameCount.textContent =
         `${visibleGames.length} game${visibleGames.length === 1 ? "" : "s"} available`;
 
       if (visibleGames.length === 0) {
@@ -1236,72 +1284,121 @@
         return;
       }
 
-      grid.innerHTML = visibleGames
-        .map((game) => {
-          const number = games.indexOf(game) + 1;
+      grid.innerHTML = visibleGames.map((game) => {
+        const index = games.indexOf(game);
 
-          return `
-            <article class="game-card">
-              <div>
-                <span class="game-number">
-                  #${String(number).padStart(2, "0")}
-                </span>
+        return `
+          <article class="game-card">
+            <div>
+              <span class="game-number">
+                #${String(index + 1).padStart(2, "0")}
+              </span>
 
-                <div class="game-icon">${game.icon}</div>
+              <div class="game-icon">${escapeHtml(game.icon)}</div>
 
-                <h3>${escapeHtml(game.name)}</h3>
+              <h3>${escapeHtml(game.name)}</h3>
 
-                <p>${escapeHtml(game.description)}</p>
-              </div>
+              <p>${escapeHtml(game.description)}</p>
+            </div>
 
-              <div class="game-footer">
-                <span class="tag">${escapeHtml(game.category)}</span>
+            <div class="game-footer">
+              <span class="tag">${escapeHtml(game.category)}</span>
 
-                <button
-                  class="play-button"
-                  onclick="launchGame(${number - 1})">
-                  PLAY
-                </button>
-              </div>
-            </article>
-          `;
-        })
-        .join("");
+              <button
+                class="play-button"
+                type="button"
+                onclick="launchGame(${index})">
+                PLAY
+              </button>
+            </div>
+          </article>
+        `;
+      }).join("");
     }
 
     function launchGame(index) {
       const game = games[index];
 
+      if (!game) {
+        return;
+      }
+
       if (!game.url) {
         alert(
-          `${game.name} does not have a game URL yet. Add its authorized GitHub Pages URL in the games array.`
+          `${game.name} does not have a playable URL yet. Add an authorized game URL to the games array.`
         );
         return;
       }
 
-      const modal = document.getElementById("gameModal");
-      const frame = document.getElementById("gameFrame");
-      const title = document.getElementById("modalTitle");
-
-      title.textContent = game.name;
-      frame.src = game.url;
+      currentGameUrl = game.url;
+      modalTitle.textContent = game.name;
       modal.classList.add("open");
-
+      modal.setAttribute("aria-hidden", "false");
       document.body.style.overflow = "hidden";
+
+      frame.style.display = "block";
+      modalMessage.classList.remove("show");
+      frame.src = "about:blank";
+
+      if (game.externalOnly) {
+        showExternalGameMessage(game);
+        return;
+      }
+
+      frame.onload = () => {
+        try {
+          const frameDocument =
+            frame.contentDocument || frame.contentWindow.document;
+
+          if (!frameDocument || !frameDocument.body) {
+            showExternalGameMessage(game);
+          }
+        } catch (error) {
+          showExternalGameMessage(game);
+        }
+      };
+
+      frame.onerror = () => {
+        showExternalGameMessage(game);
+      };
+
+      setTimeout(() => {
+        if (modal.classList.contains("open")) {
+          frame.src = game.url;
+        }
+      }, 20);
+    }
+
+    function showExternalGameMessage(game) {
+      frame.style.display = "none";
+      modalMessage.classList.add("show");
+
+      document.getElementById("messageTitle").textContent =
+        `${game.name} opens in a new tab`;
+
+      document.getElementById("messageText").textContent =
+        "This game blocks being displayed inside another website. Click the button below to open the playable version.";
+
+      openExternalButton.onclick = () => {
+        window.open(game.url, "_blank", "noopener,noreferrer");
+      };
     }
 
     function closeGame() {
-      const modal = document.getElementById("gameModal");
-      const frame = document.getElementById("gameFrame");
-
-      frame.src = "";
+      frame.src = "about:blank";
+      frame.style.display = "block";
+      modalMessage.classList.remove("show");
       modal.classList.remove("open");
-
+      modal.setAttribute("aria-hidden", "true");
       document.body.style.overflow = "";
+      currentGameUrl = "";
     }
 
     function fullscreenGame() {
-      const frame = document.getElementById("gameFrame");
+      if (frame.style.display === "none") {
+        window.open(currentGameUrl, "_blank", "noopener,noreferrer");
+        return;
+      }
 
       if (frame.requestFullscreen) {
         frame.requestFullscreen();
@@ -1345,69 +1442,70 @@
 
       newWindow.document.write(`
         <!DOCTYPE html>
-        <html>
-          <head>
-            <title>94 Games</title>
-            <style>
-              html,
-              body {
-                margin: 0;
-                min-height: 100%;
-              }
+        <html lang="en">
+        <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>94 Games</title>
+          <style>
+            html,
+            body {
+              margin: 0;
+              min-height: 100%;
+            }
 
-              body {
-                min-height: 100vh;
-                display: grid;
-                place-items: center;
-                color: #39ff14;
-                background:
-                  radial-gradient(circle, rgba(57,255,20,.2), transparent 45%),
-                  #020602;
-                font-family: Arial, sans-serif;
-                text-align: center;
-              }
+            body {
+              min-height: 100vh;
+              display: grid;
+              place-items: center;
+              color: #39ff14;
+              background:
+                radial-gradient(circle, rgba(57,255,20,.2), transparent 45%),
+                #020602;
+              font-family: Arial, sans-serif;
+              text-align: center;
+            }
 
-              h1 {
-                font-size: 5rem;
-                text-shadow:
-                  0 0 10px #39ff14,
-                  0 0 30px #39ff14;
-              }
+            h1 {
+              font-size: 5rem;
+              text-shadow:
+                0 0 10px #39ff14,
+                0 0 30px #39ff14;
+            }
 
-              p {
-                color: #b9d9bb;
-              }
-            </style>
-          </head>
+            p {
+              color: #b9d9bb;
+            }
+          </style>
+    </head>
+    <body>
+      <div>
+        <h1>94 GAMES</h1>
+        <p>Neon arcade hub launched.</p>
+      </div>
+    </body>
+    </html>
+  `);
 
-          <body>
-            <div>
-              <h1>94 GAMES</h1>
-              <p>Neon arcade hub launched.</p>
-            </div>
-          </body>
-        </html>
-      `);
+  newWindow.document.close();
+}
 
-      newWindow.document.close();
-    }
+searchInput.addEventListener("input", renderGames);
 
-    function escapeHtml(value) {
-      return value
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
-    }
+document.querySelectorAll(".filter-button").forEach((button) => {
+  button.addEventListener("click", () => {
+    setCategory(button.dataset.category, button);
+  });
+});
 
-    document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape") {
-        closeGame();
-      }
-    });
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && modal.classList.contains("open")) {
+    closeGame();
+  }
+});
 
-    renderGames();
+renderGames();
+
   </script>
 </body>
 </html>

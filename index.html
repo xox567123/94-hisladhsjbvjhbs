@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>94 Games</title>
+
   <style>
     :root {
       --neon: #39ff14;
@@ -453,141 +454,165 @@
     }
   </style>
 </head>
+
 <body>
   <header>
     <nav class="nav">
       <div class="logo">94 GAMES</div>
-  <div class="nav-buttons">
-    <button class="nav-button" type="button" onclick="scrollToGames()">
-      Games
-    </button>
 
-    <button class="nav-button" type="button" onclick="openHubAboutBlank()">
-      Open About:Blank
-    </button>
+      <div class="nav-buttons">
+        <button class="nav-button" type="button" onclick="scrollToGames()">
+          Games
+        </button>
 
-    <button class="nav-button" type="button" onclick="toggleFullscreen()">
-      Fullscreen
-    </button>
-  </div>
-</nav>
+        <button class="nav-button" type="button" onclick="openHubAboutBlank()">
+          Open About:Blank
+        </button>
 
+        <button class="nav-button" type="button" onclick="toggleFullscreen()">
+          Fullscreen
+        </button>
+      </div>
+    </nav>
   </header>
+
   <main>
     <section class="hero">
       <div class="hero-content">
         <div class="badge">NEON ARCADE // 94 TITLES</div>
-    <h1>94<br />GAMES</h1>
 
-    <p>
-      A neon-powered arcade hub featuring racing, sports, puzzle,
-      idle, action, and classic browser games.
-    </p>
+        <h1>94<br />GAMES</h1>
 
-    <div class="hero-buttons">
-      <button class="hero-button" type="button" onclick="scrollToGames()">
-        Browse Games
-      </button>
+        <p>
+          A neon-powered arcade hub featuring racing, sports, puzzle,
+          idle, action, and classic browser games.
+        </p>
 
-      <button class="outline-button" type="button" onclick="openHubAboutBlank()">
-        Launch About:Blank
-      </button>
-    </div>
-  </div>
-</section>
+        <div class="hero-buttons">
+          <button class="hero-button" type="button" onclick="scrollToGames()">
+            Browse Games
+          </button>
 
-<section id="games">
-  <div class="section-header">
-    <h2>ALL GAMES</h2>
-    <span id="gameCount">94 games available</span>
-  </div>
+          <button class="outline-button" type="button" onclick="openHubAboutBlank()">
+            Launch About:Blank
+          </button>
+        </div>
+      </div>
+    </section>
 
-  <div class="controls">
-    <input
-      id="search"
-      type="search"
-      placeholder="Search games..."
-      autocomplete="off"
-    />
+    <section id="games">
+      <div class="section-header">
+        <h2>ALL GAMES</h2>
+        <span id="gameCount">94 games available</span>
+      </div>
 
-    <button class="filter-button active" type="button" data-category="all">
-      All
-    </button>
+      <div class="controls">
+        <input
+          id="search"
+          type="search"
+          placeholder="Search games..."
+          autocomplete="off"
+        />
 
-    <button class="filter-button" type="button" data-category="arcade">
-      Arcade
-    </button>
+        <button class="filter-button active" type="button" data-category="all">
+          All
+        </button>
 
-    <button class="filter-button" type="button" data-category="racing">
-      Racing
-    </button>
+        <button class="filter-button" type="button" data-category="arcade">
+          Arcade
+        </button>
 
-    <button class="filter-button" type="button" data-category="sports">
-      Sports
-    </button>
+        <button class="filter-button" type="button" data-category="racing">
+          Racing
+        </button>
 
-    <button class="filter-button" type="button" data-category="puzzle">
-      Puzzle
-    </button>
-  </div>
+        <button class="filter-button" type="button" data-category="sports">
+          Sports
+        </button>
 
-  <div id="gameGrid" class="game-grid"></div>
-</section>
+        <button class="filter-button" type="button" data-category="puzzle">
+          Puzzle
+        </button>
+      </div>
 
+      <div id="gameGrid" class="game-grid"></div>
+    </section>
   </main>
+
   <footer>
     94 Games © 2026 — Only host games that you are authorized to redistribute.
   </footer>
+
   <div id="gameModal" class="game-modal" aria-hidden="true">
     <div class="modal-bar">
       <div id="modalTitle" class="modal-title">94 Games</div>
-  <div class="modal-actions">
-    <button class="fullscreen-button" type="button" onclick="fullscreenGame()">
-      Fullscreen
-    </button>
 
-    <button class="close-button" type="button" onclick="closeGame()">
-      Close
-    </button>
+      <div class="modal-actions">
+        <button class="fullscreen-button" type="button" onclick="fullscreenGame()">
+          Fullscreen
+        </button>
+
+        <button class="close-button" type="button" onclick="closeGame()">
+          Close
+        </button>
+      </div>
+    </div>
+
+    <iframe
+      id="gameFrame"
+      title="Game"
+      allow="fullscreen; autoplay; gamepad"
+      allowfullscreen>
+    </iframe>
+
+    <div id="modalMessage" class="modal-message">
+      <div>
+        <h2 id="messageTitle">Game could not load inside the hub</h2>
+
+        <p id="messageText">
+          This game may block iframe loading. Use the button below to open it
+          in a new tab.
+        </p>
+
+        <br />
+
+        <button
+          id="openExternalButton"
+          class="hero-button"
+          type="button">
+          Open Game in New Tab
+        </button>
+      </div>
+    </div>
   </div>
-</div>
 
-<iframe
-  id="gameFrame"
-  title="Game"
-  allow="fullscreen; autoplay; gamepad"
-  allowfullscreen>
-</iframe>
-
-<div id="modalMessage" class="modal-message">
-  <div>
-    <h2 id="messageTitle">Game could not load inside the hub</h2>
-    <p id="messageText">
-      This website may block iframe loading. Use the button below to open it
-      in a new tab.
-    </p>
-
-    <br />
-
-    <button
-      id="openExternalButton"
-      class="hero-button"
-      type="button">
-      Open Game in New Tab
-    </button>
-  </div>
-</div>
-
-  </div>
   <script>
+    /*
+      IMPORTANT:
+
+      For reliable iframe embedding, host games inside your own GitHub Pages
+      repository. Example:
+
+      https://xox567123.github.io/94-hisladhsjbvjhbs/games/drive-mad/
+
+      Each hosted game should contain its own index.html file.
+
+      Third-party sites can still block iframes with X-Frame-Options or CSP.
+      This file detects that situation and provides a new-tab fallback.
+    */
+
+    const SITE_BASE_URL =
+      "https://xox567123.github.io/94-hisladhsjbvjhbs/";
+
     const games = [
       {
         name: "Drive Mad",
         icon: "🏎️",
         category: "racing",
         description: "Race across difficult obstacle courses.",
-        url: "https://drive-mad-game-level-199.github.io/"
+        url: `${SITE_BASE_URL}games/drive-mad/`
       },
+
       {
         name: "Retro Bowl",
         icon: "🏈",
@@ -596,19 +621,21 @@
         url: "https://poki.com/en/g/retro-bowl",
         externalOnly: true
       },
+
       {
         name: "Idle Breakout",
         icon: "🧱",
         category: "arcade",
         description: "Break bricks and upgrade your setup.",
-        url: "https://3kh0.github.io/idle-breakout/"
+        url: `${SITE_BASE_URL}games/idle-breakout/`
       },
+
       {
         name: "Slope",
         icon: "🔵",
         category: "arcade",
         description: "Roll through an endless neon course.",
-        url: "https://slopeunblockedgithub.github.io/"
+        url: `${SITE_BASE_URL}games/slope/`
       },
 
       {
@@ -618,6 +645,7 @@
         description: "Run through a glowing digital city.",
         url: ""
       },
+
       {
         name: "Pixel Racer",
         icon: "🚗",
@@ -625,6 +653,7 @@
         description: "Beat the clock on tiny retro tracks.",
         url: ""
       },
+
       {
         name: "Goal Strike",
         icon: "⚽",
@@ -632,6 +661,7 @@
         description: "Score as many goals as possible.",
         url: ""
       },
+
       {
         name: "Block Stack",
         icon: "🟩",
@@ -639,13 +669,15 @@
         description: "Stack blocks as high as possible.",
         url: ""
       },
+
       {
         name: "2048 Glow",
         icon: "🔢",
         category: "puzzle",
         description: "Combine matching tiles to reach 2048.",
-        url: "https://eng-mohamed-elsayedahmed.github.io/games/"
+        url: `${SITE_BASE_URL}games/2048-glow/`
       },
+
       {
         name: "Laser Dodge",
         icon: "⚡",
@@ -653,6 +685,7 @@
         description: "Avoid lasers and chase a high score.",
         url: ""
       },
+
       {
         name: "Gravity Flip",
         icon: "↕️",
@@ -660,6 +693,7 @@
         description: "Flip gravity to navigate tricky rooms.",
         url: ""
       },
+
       {
         name: "Neon Tennis",
         icon: "🎾",
@@ -667,6 +701,7 @@
         description: "Return glowing shots with perfect timing.",
         url: ""
       },
+
       {
         name: "Drift Circuit",
         icon: "💨",
@@ -674,6 +709,7 @@
         description: "Drift around sharp neon corners.",
         url: ""
       },
+
       {
         name: "Rocket League Mini",
         icon: "🚀",
@@ -681,6 +717,7 @@
         description: "Knock the ball into the goal.",
         url: ""
       },
+
       {
         name: "Memory Grid",
         icon: "🧠",
@@ -688,6 +725,7 @@
         description: "Remember the pattern before it disappears.",
         url: ""
       },
+
       {
         name: "Tunnel Dash",
         icon: "🌌",
@@ -695,6 +733,7 @@
         description: "React quickly as the tunnel changes.",
         url: ""
       },
+
       {
         name: "Bike Balance",
         icon: "🚲",
@@ -702,6 +741,7 @@
         description: "Keep your bike steady across ramps.",
         url: ""
       },
+
       {
         name: "Penalty Pro",
         icon: "🥅",
@@ -709,6 +749,7 @@
         description: "Aim your shots and beat the keeper.",
         url: ""
       },
+
       {
         name: "Color Match",
         icon: "🎨",
@@ -716,6 +757,7 @@
         description: "Match falling colors before time runs out.",
         url: ""
       },
+
       {
         name: "Astro Blaster",
         icon: "👾",
@@ -723,6 +765,7 @@
         description: "Defend the neon galaxy from enemies.",
         url: ""
       },
+
       {
         name: "Traffic Escape",
         icon: "🚦",
@@ -730,6 +773,7 @@
         description: "Find the fastest route through traffic.",
         url: ""
       },
+
       {
         name: "Baseball Blast",
         icon: "⚾",
@@ -737,6 +781,7 @@
         description: "Hit the ball as far as possible.",
         url: ""
       },
+
       {
         name: "Word Sprint",
         icon: "🔤",
@@ -744,6 +789,7 @@
         description: "Solve words quickly to keep your streak.",
         url: ""
       },
+
       {
         name: "Cyber Climber",
         icon: "🧗",
@@ -751,6 +797,7 @@
         description: "Climb while dodging digital hazards.",
         url: ""
       },
+
       {
         name: "Street Racer",
         icon: "🌃",
@@ -758,6 +805,7 @@
         description: "Race through a glowing city at night.",
         url: ""
       },
+
       {
         name: "Hoop Storm",
         icon: "🏀",
@@ -765,6 +813,7 @@
         description: "Make as many baskets as possible.",
         url: ""
       },
+
       {
         name: "Number Merge",
         icon: "➕",
@@ -772,6 +821,7 @@
         description: "Merge numbers and create combos.",
         url: ""
       },
+
       {
         name: "Meteor Run",
         icon: "☄️",
@@ -779,6 +829,7 @@
         description: "Dodge meteors and collect energy.",
         url: ""
       },
+
       {
         name: "Turbo Track",
         icon: "🏁",
@@ -786,6 +837,7 @@
         description: "Use boosts to take first place.",
         url: ""
       },
+
       {
         name: "Hockey Flick",
         icon: "🏒",
@@ -793,6 +845,7 @@
         description: "Flick the puck past the goalie.",
         url: ""
       },
+
       {
         name: "Maze Matrix",
         icon: "🌀",
@@ -800,6 +853,7 @@
         description: "Escape the shifting neon maze.",
         url: ""
       },
+
       {
         name: "Coin Catcher",
         icon: "🪙",
@@ -807,6 +861,7 @@
         description: "Catch coins while avoiding hazards.",
         url: ""
       },
+
       {
         name: "Nitro Nights",
         icon: "🔥",
@@ -814,6 +869,7 @@
         description: "Win races with perfectly timed nitro.",
         url: ""
       },
+
       {
         name: "Touchdown Dash",
         icon: "🏈",
@@ -821,6 +877,7 @@
         description: "Run past defenders and score.",
         url: ""
       },
+
       {
         name: "Sudoku Glow",
         icon: "🧩",
@@ -828,6 +885,7 @@
         description: "Solve a glowing Sudoku board.",
         url: ""
       },
+
       {
         name: "Orbital Defense",
         icon: "🛰️",
@@ -835,6 +893,7 @@
         description: "Protect your station from enemy waves.",
         url: ""
       },
+
       {
         name: "Mountain Drive",
         icon: "⛰️",
@@ -842,6 +901,7 @@
         description: "Climb steep hills without flipping.",
         url: ""
       },
+
       {
         name: "Golf Orbit",
         icon: "⛳",
@@ -849,6 +909,7 @@
         description: "Put the ball through space courses.",
         url: ""
       },
+
       {
         name: "Circuit Connect",
         icon: "🔌",
@@ -856,6 +917,7 @@
         description: "Connect circuits without crossing paths.",
         url: ""
       },
+
       {
         name: "Drone Dodge",
         icon: "🛸",
@@ -863,6 +925,7 @@
         description: "Fly through checkpoints and avoid walls.",
         url: ""
       },
+
       {
         name: "Rally Storm",
         icon: "🌧️",
@@ -870,6 +933,7 @@
         description: "Race through rain, mud, and lights.",
         url: ""
       },
+
       {
         name: "Free Kick",
         icon: "⚽",
@@ -877,6 +941,7 @@
         description: "Curve the ball around the wall.",
         url: ""
       },
+
       {
         name: "Tile Tap",
         icon: "🔲",
@@ -884,6 +949,7 @@
         description: "Clear matching tiles before time ends.",
         url: ""
       },
+
       {
         name: "Cannon Crash",
         icon: "💥",
@@ -891,6 +957,7 @@
         description: "Launch through targets and platforms.",
         url: ""
       },
+
       {
         name: "Hover Race",
         icon: "🛞",
@@ -898,6 +965,7 @@
         description: "Race above the track using boosts.",
         url: ""
       },
+
       {
         name: "Dunk Master",
         icon: "🏆",
@@ -905,6 +973,7 @@
         description: "Time your jump and dunk the ball.",
         url: ""
       },
+
       {
         name: "Logic Lines",
         icon: "📐",
@@ -912,6 +981,7 @@
         description: "Complete patterns with the correct lines.",
         url: ""
       },
+
       {
         name: "Shield Breaker",
         icon: "🛡️",
@@ -919,6 +989,7 @@
         description: "Break through waves of shields.",
         url: ""
       },
+
       {
         name: "Speed Lane",
         icon: "🛣️",
@@ -926,6 +997,7 @@
         description: "Switch lanes and avoid traffic.",
         url: ""
       },
+
       {
         name: "Quarterback",
         icon: "🏈",
@@ -933,6 +1005,7 @@
         description: "Throw accurate passes to targets.",
         url: ""
       },
+
       {
         name: "Gem Swap",
         icon: "💎",
@@ -940,6 +1013,7 @@
         description: "Swap gems to make matches.",
         url: ""
       },
+
       {
         name: "Neon Invaders",
         icon: "👽",
@@ -947,6 +1021,7 @@
         description: "Defeat formations of pixel enemies.",
         url: ""
       },
+
       {
         name: "Desert Drift",
         icon: "🏜️",
@@ -954,6 +1029,7 @@
         description: "Master long drifts across desert roads.",
         url: ""
       },
+
       {
         name: "Volley Burst",
         icon: "🏐",
@@ -961,6 +1037,7 @@
         description: "Return every volleyball before it drops.",
         url: ""
       },
+
       {
         name: "Pattern Pulse",
         icon: "💡",
@@ -968,6 +1045,7 @@
         description: "Repeat the glowing pattern correctly.",
         url: ""
       },
+
       {
         name: "Cyber Ninja",
         icon: "🥷",
@@ -975,6 +1053,7 @@
         description: "Slash targets and dodge projectiles.",
         url: ""
       },
+
       {
         name: "Ocean Racer",
         icon: "🚤",
@@ -982,6 +1061,7 @@
         description: "Race speedboats through tight channels.",
         url: ""
       },
+
       {
         name: "Skate Line",
         icon: "🛹",
@@ -989,6 +1069,7 @@
         description: "Perform tricks and avoid barriers.",
         url: ""
       },
+
       {
         name: "Pipe Link",
         icon: "🚰",
@@ -996,6 +1077,7 @@
         description: "Rotate pipes to connect the system.",
         url: ""
       },
+
       {
         name: "Rocket Hop",
         icon: "🚀",
@@ -1003,6 +1085,7 @@
         description: "Bounce between platforms with a jetpack.",
         url: ""
       },
+
       {
         name: "Ice Circuit",
         icon: "❄️",
@@ -1010,6 +1093,7 @@
         description: "Race carefully across slippery tracks.",
         url: ""
       },
+
       {
         name: "Target Toss",
         icon: "🎯",
@@ -1017,6 +1101,7 @@
         description: "Hit moving targets with perfect timing.",
         url: ""
       },
+
       {
         name: "Grid Escape",
         icon: "🚪",
@@ -1024,6 +1109,7 @@
         description: "Find the exit using logic and timing.",
         url: ""
       },
+
       {
         name: "Firefly Frenzy",
         icon: "✨",
@@ -1031,6 +1117,7 @@
         description: "Collect fireflies while avoiding dark zones.",
         url: ""
       },
+
       {
         name: "Moon Buggy",
         icon: "🌙",
@@ -1038,6 +1125,7 @@
         description: "Drive across craters and collect fuel.",
         url: ""
       },
+
       {
         name: "Boxing Blitz",
         icon: "🥊",
@@ -1045,6 +1133,7 @@
         description: "Block and punch through each round.",
         url: ""
       },
+
       {
         name: "Circuit Sudoku",
         icon: "🔢",
@@ -1052,6 +1141,7 @@
         description: "Solve an electronic Sudoku board.",
         url: ""
       },
+
       {
         name: "Alien Dash",
         icon: "👾",
@@ -1059,6 +1149,7 @@
         description: "Escape the alien base before lockdown.",
         url: ""
       },
+
       {
         name: "Skyway Racer",
         icon: "☁️",
@@ -1066,6 +1157,7 @@
         description: "Race across floating neon platforms.",
         url: ""
       },
+
       {
         name: "Bowling Glow",
         icon: "🎳",
@@ -1073,6 +1165,7 @@
         description: "Knock down every pin with one throw.",
         url: ""
       },
+
       {
         name: "Switch Maze",
         icon: "🔀",
@@ -1080,6 +1173,7 @@
         description: "Activate switches in the right order.",
         url: ""
       },
+
       {
         name: "Plasma Pop",
         icon: "🫧",
@@ -1087,6 +1181,7 @@
         description: "Pop matching plasma bubbles.",
         url: ""
       },
+
       {
         name: "Rocket Rally",
         icon: "🚀",
@@ -1094,6 +1189,7 @@
         description: "Blast through checkpoints at high speed.",
         url: ""
       },
+
       {
         name: "Batting Zone",
         icon: "⚾",
@@ -1101,6 +1197,7 @@
         description: "Hit pitches and build your score.",
         url: ""
       },
+
       {
         name: "Hexa Merge",
         icon: "⬡",
@@ -1108,6 +1205,7 @@
         description: "Merge hexagons into larger shapes.",
         url: ""
       },
+
       {
         name: "Robot Attack",
         icon: "🤖",
@@ -1115,6 +1213,7 @@
         description: "Survive endless waves of robots.",
         url: ""
       },
+
       {
         name: "Neon Kart",
         icon: "🏎️",
@@ -1122,6 +1221,7 @@
         description: "Use items and shortcuts to win.",
         url: ""
       },
+
       {
         name: "Soccer Flick",
         icon: "⚽",
@@ -1129,6 +1229,7 @@
         description: "Flick the ball past defenders.",
         url: ""
       },
+
       {
         name: "Word Blocks",
         icon: "🔠",
@@ -1136,6 +1237,7 @@
         description: "Create words from falling letters.",
         url: ""
       },
+
       {
         name: "Star Catcher",
         icon: "⭐",
@@ -1143,6 +1245,7 @@
         description: "Collect stars and avoid black holes.",
         url: ""
       },
+
       {
         name: "Night Highway",
         icon: "🌙",
@@ -1150,6 +1253,7 @@
         description: "Drive fast through a glowing highway.",
         url: ""
       },
+
       {
         name: "Table Tennis",
         icon: "🏓",
@@ -1157,6 +1261,7 @@
         description: "Return shots and increase the rally.",
         url: ""
       },
+
       {
         name: "Laser Logic",
         icon: "🔦",
@@ -1164,6 +1269,7 @@
         description: "Reflect lasers into the correct targets.",
         url: ""
       },
+
       {
         name: "Dungeon Dash",
         icon: "🏰",
@@ -1171,6 +1277,7 @@
         description: "Run through a dangerous pixel dungeon.",
         url: ""
       },
+
       {
         name: "Formula Neon",
         icon: "🏁",
@@ -1178,6 +1285,7 @@
         description: "Set the fastest lap time.",
         url: ""
       },
+
       {
         name: "Clutch Shot",
         icon: "🏀",
@@ -1185,6 +1293,7 @@
         description: "Make difficult shots under pressure.",
         url: ""
       },
+
       {
         name: "Color Circuit",
         icon: "🌈",
@@ -1192,6 +1301,7 @@
         description: "Match colors to complete the circuit.",
         url: ""
       },
+
       {
         name: "Final Orbit",
         icon: "🌍",
@@ -1199,6 +1309,7 @@
         description: "Survive the final endless challenge.",
         url: ""
       },
+
       {
         name: "Zero Gravity",
         icon: "🪐",
@@ -1206,6 +1317,7 @@
         description: "Float through obstacles and collect points.",
         url: ""
       },
+
       {
         name: "Last Lap",
         icon: "🏁",
@@ -1213,6 +1325,7 @@
         description: "Stay ahead during the final lap.",
         url: ""
       },
+
       {
         name: "Champion Mode",
         icon: "🥇",
@@ -1220,6 +1333,7 @@
         description: "Compete in a fast mini tournament.",
         url: ""
       },
+
       {
         name: "Brain Burst",
         icon: "💭",
@@ -1227,6 +1341,7 @@
         description: "Solve quick puzzles before time ends.",
         url: ""
       },
+
       {
         name: "94 Challenge",
         icon: "94",
@@ -1238,6 +1353,7 @@
 
     let selectedCategory = "all";
     let currentGameUrl = "";
+    let frameLoadTimer = null;
 
     const grid = document.getElementById("gameGrid");
     const searchInput = document.getElementById("search");
@@ -1332,6 +1448,7 @@
 
       currentGameUrl = game.url;
       modalTitle.textContent = game.name;
+
       modal.classList.add("open");
       modal.setAttribute("aria-hidden", "false");
       document.body.style.overflow = "hidden";
@@ -1340,12 +1457,43 @@
       modalMessage.classList.remove("show");
       frame.src = "about:blank";
 
+      openExternalButton.onclick = () => {
+        window.open(currentGameUrl, "_blank", "noopener,noreferrer");
+      };
+
       if (game.externalOnly) {
         showExternalGameMessage(game);
         return;
       }
 
       frame.onload = () => {
+        clearTimeout(frameLoadTimer);
+
+        frameLoadTimer = setTimeout(() => {
+          try {
+            const frameDocument =
+              frame.contentDocument || frame.contentWindow.document;
+
+            if (!frameDocument || !frameDocument.body) {
+              showExternalGameMessage(game);
+            }
+          } catch (error) {
+            showExternalGameMessage(game);
+          }
+        }, 900);
+      };
+
+      frame.onerror = () => {
+        showExternalGameMessage(game);
+      };
+
+      frame.src = game.url;
+
+      frameLoadTimer = setTimeout(() => {
+        if (!modal.classList.contains("open")) {
+          return;
+        }
+
         try {
           const frameDocument =
             frame.contentDocument || frame.contentWindow.document;
@@ -1356,17 +1504,7 @@
         } catch (error) {
           showExternalGameMessage(game);
         }
-      };
-
-      frame.onerror = () => {
-        showExternalGameMessage(game);
-      };
-
-      setTimeout(() => {
-        if (modal.classList.contains("open")) {
-          frame.src = game.url;
-        }
-      }, 20);
+      }, 5000);
     }
 
     function showExternalGameMessage(game) {
@@ -1377,7 +1515,7 @@
         `${game.name} opens in a new tab`;
 
       document.getElementById("messageText").textContent =
-        "This game blocks being displayed inside another website. Click the button below to open the playable version.";
+        "This game does not allow iframe embedding. Click the button below to open the playable version in a new tab.";
 
       openExternalButton.onclick = () => {
         window.open(game.url, "_blank", "noopener,noreferrer");
@@ -1385,6 +1523,8 @@
     }
 
     function closeGame() {
+      clearTimeout(frameLoadTimer);
+
       frame.src = "about:blank";
       frame.style.display = "block";
       modalMessage.classList.remove("show");
@@ -1447,6 +1587,7 @@
           <meta charset="UTF-8">
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
           <title>94 Games</title>
+
           <style>
             html,
             body {
@@ -1477,35 +1618,35 @@
               color: #b9d9bb;
             }
           </style>
-    </head>
-    <body>
-      <div>
-        <h1>94 GAMES</h1>
-        <p>Neon arcade hub launched.</p>
-      </div>
-    </body>
-    </html>
-  `);
+        </head>
 
-  newWindow.document.close();
-}
+        <body>
+          <div>
+            <h1>94 GAMES</h1>
+            <p>Neon arcade hub launched.</p>
+          </div>
+        </body>
+        </html>
+      `);
 
-searchInput.addEventListener("input", renderGames);
+      newWindow.document.close();
+    }
 
-document.querySelectorAll(".filter-button").forEach((button) => {
-  button.addEventListener("click", () => {
-    setCategory(button.dataset.category, button);
-  });
-});
+    searchInput.addEventListener("input", renderGames);
 
-document.addEventListener("keydown", (event) => {
-  if (event.key === "Escape" && modal.classList.contains("open")) {
-    closeGame();
-  }
-});
+    document.querySelectorAll(".filter-button").forEach((button) => {
+      button.addEventListener("click", () => {
+        setCategory(button.dataset.category, button);
+      });
+    });
 
-renderGames();
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && modal.classList.contains("open")) {
+        closeGame();
+      }
+    });
 
+    renderGames();
   </script>
 </body>
 </html>
